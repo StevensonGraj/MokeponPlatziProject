@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Press+Start+2P&display=swap');
+body {
+  font-family: 'Bungee Shade';
+  background-image: url("/assets/pink_world.jpg");
+  background-size: cover;
+  background-position: 0%;
+}
+
+h1{
+  text-align: center;
+  margin: 0%;
+  font-size: 60px;
+}
+#title {
+  color: #FF6D28;
+}
+#emojis {
+  background-color: #FF6D28;
+}
+
+button{
+  width: 150px;
+  height: 40px;
+  border-radius: 5px;
+  background: #FF6D28;
+  border: 2px solid #FCE700;
+  font-family: 'Press Start 2P', cursive;
+  font-weight: bold;
+  font-size: 16px;
+}
+#watter{
+  background-color: #00F5FF;
+}
+#ground{
+  background-color: greenyellow;
+}
+#petButton {
+  margin-top: 30px;
+}
+#restartButton {
+  margin-top: 20px;
+}
+
+#pet-selection{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #00F5FF;
+}
+
+.cards {
+  display: flex;
+  gap: 10px;
+}
+.mokepon-card {
+  width: 180px;
+  height: 220px;
+  background: #FF6D28;
+  padding: 5px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  color: #00F5FF;
+}
+.mokepon-card img {
+  width: 150px;
+}
+.mokepon-card h2{
+  margin: 0px;
+  font-size: 20px;
+}
+.mokepon-card p{
+  margin: 0%;
+  font-size: 14px;
+}
+
+#attack-selection{
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  color: #00F5FF;
+}
+#petsFight{
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  align-items: center;
+}
+#petsFight h2{
+  margin: 0px;
+}
+#atk{
+  display: grid;
+  grid-template-rows: 1fr 1fr 4fr;
+}
+
+.result-restart{
+  display: flex;
+  width: 500px;
+  flex-direction: column;
+  align-items: center;
+}
+.result-restart h2,p{
+  text-align: center;
+  margin: 0px;
+}
