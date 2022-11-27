@@ -8,7 +8,7 @@ body {
 
 h1{
   text-align: center;
-  margin: 0%;
+  margin: -30px 0 -30px 0px;
   font-size: 60px;
 }
 #title {
@@ -16,6 +16,7 @@ h1{
 }
 #emojis {
   background-color: #FF6D28;
+  height: 120px;
 }
 
 button{
@@ -27,6 +28,9 @@ button{
   font-family: 'Press Start 2P', cursive;
   font-weight: bold;
   font-size: 16px;
+}
+button:active{
+  transform: scale(0.90);
 }
 #watter{
   background-color: #00F5FF;
@@ -46,12 +50,15 @@ button{
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
   color: #00F5FF;
+  padding: 10px;
 }
 
 .cards {
   display: flex;
   gap: 10px;
+  align-items: center;
 }
 .mokepon-card {
   width: 180px;
@@ -62,7 +69,7 @@ button{
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   color: #00F5FF;
 }
@@ -78,11 +85,23 @@ button{
   font-size: 14px;
 }
 
+input{
+  display: none;
+}
+input:checked + label{
+  background-color: #f7743788;
+  border: solid 3px #00F5FF;
+}
+
 #attack-selection{
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   color: #00F5FF;
+}
+#buttons{
+  display: flex;
+  gap: 10px;
 }
 #petsFight{
   display: flex;
@@ -95,6 +114,7 @@ button{
 }
 #atk{
   display: grid;
+  text-align: center;
   grid-template-rows: 1fr 1fr 4fr;
 }
 
@@ -107,4 +127,22 @@ button{
 .result-restart h2,p{
   text-align: center;
   margin: 0px;
+}
+
+@media (max-width: 500px){
+  .cards{
+    flex-direction: column;
+  }
+  #buttons{
+    flex-direction: column;
+  }
+  #petsFight{
+    flex-direction: column;
+  }
+  h1{
+    font-size: 40px;
+  }
+  #emojis{
+    height: 100px;
+  }
 }

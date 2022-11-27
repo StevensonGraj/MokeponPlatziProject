@@ -9,29 +9,29 @@
         <link rel="stylesheet" href="css/styles.css">
     </head>
     <body>
-        <h1 id="title">WELCOME TO MOKEPON</h1>
         <h1 id="emojis">🔥💦🧱🐱‍🐉🎮👾</h1>
-
+        <h1 id="title">WELCOME TO MOKEPON</h1>
+        
         <section id="pet-selection">
             <h2>Select your pet:</h2>
 
             <div class="cards">
+                <input type="radio" name="mascota" id="hipodoge" />
                 <label class="mokepon-card" for="hipodoge">
                     <h2>Hipodoge</h2>
                     <img src="./assets/mokepons_mokepon_hipodoge_attack.png" alt="Hipodoge">
-                    <input type="radio" name="mascota" id="hipodoge" />
                 </label>
                 
+                <input type="radio" name="mascota" id="capipepo" />
                 <label class="mokepon-card" for="capipepo">
                     <h2>Capipepo</h2>
                     <img src="./assets/mokepons_mokepon_capipepo_attack.png" alt="Capipepo">
-                    <input type="radio" name="mascota" id="capipepo" />
                 </label>
                 
+                <input type="radio" name="mascota" id="ratigueya" />
                 <label class="mokepon-card" for="ratigueya">
                     <h2>Ratigueya</h2>
                     <img src="./assets/mokepons_mokepon_ratigueya_attack.png" alt="Ratigueya">
-                    <input type="radio" name="mascota" id="ratigueya" />
                 </label>
             </div>
 
@@ -47,23 +47,23 @@
                 <button id="ground" class="boton-de-ataque">GROUND 🌱</button>
             </div>
 
+            <div class="result-restart">
+                <div id="restart">  <button id="restartButton">Restart</button> </div>
+                <h2 id="battle-result">BATTLE!</h2>
+            </div>
+
             <div id="petsFight">
-                <div class="mokepon-card" id="atk">
-                    <h2>Player</h2>
-                    <p><span id="playerPet"></span> - HP: <span id="playerLives">3</span></p>
-                    <p id="player-atk"></p>
-                </div>
-                
-                <div class="result-restart">
-                    <div id="restart">  <button id="restartButton">Restart</button> </div>
-                    <h2 id="battle-result">BATTLE!</h2>
-                </div>
-                
-                <div class="mokepon-card" id="atk">
-                    <h2>Enemy</h2>
-                    <p><span id="enemyPet"></span> - HP: <span id="enemyLives">3</span></p>
-                    <p id="enemy-atk"></p>
-                </div>
+                    <div class="mokepon-card" id="atk">
+                        <h2>Player</h2>
+                        <p><span id="playerPet"></span> - HP: <span id="playerLives">3</span></p>
+                        <p id="player-atk"></p>
+                    </div>
+                    
+                    <div class="mokepon-card" id="atk">
+                        <h2>Enemy</h2>
+                        <p><span id="enemyPet"></span> - HP: <span id="enemyLives">3</span></p>
+                        <p id="enemy-atk"></p>
+                    </div>
             </div>
         </section>
         

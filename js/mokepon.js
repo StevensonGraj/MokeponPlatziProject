@@ -123,7 +123,7 @@ function checklives() {
     if (enemyLives == 0) {
         finalMessageCreate("CONGRATSSSS YOU WWWIIINNNNN! 🐱‍👤🤘🎉")
     } else if (playerLives == 0) {
-        finalMessageCreate('Mayby at next time, sorry 😪😵🦾')
+        finalMessageCreate('Mabye at next time, sorry 😪😵🦾')
     }
 }
 
