@@ -20,7 +20,7 @@ h1{
 }
 
 button{
-  width: 150px;
+  width: 160px;
   height: 40px;
   border-radius: 5px;
   background: #FF6D28;
@@ -77,8 +77,8 @@ button:active{
   width: 150px;
 }
 .mokepon-card h2{
-  margin: 0px;
-  font-size: 20px;
+  margin: -5px 0px 0px 0px;
+  font-size: 24px;
 }
 .mokepon-card p{
   margin: 0%;
@@ -93,13 +93,29 @@ input:checked + label{
   border: solid 3px #00F5FF;
 }
 
+.result-card {
+  display: grid;
+  text-align: center;
+  align-items: center;
+  grid-template-rows: 1fr 3fr 1fr 5fr;
+  width: 180px;
+  height: 350px;
+  font-family: 'Press Start 2P', cursive;
+  background: #FF6D28;
+  padding: 5px;
+  border-radius: 10px;
+  color: #00F5FF;
+}
+.result-card img {
+  width: 150px;
+}
 #attack-selection{
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   color: #00F5FF;
 }
-#buttons{
+#attack-buttons{
   display: flex;
   gap: 10px;
 }
@@ -111,11 +127,6 @@ input:checked + label{
 }
 #petsFight h2{
   margin: 0px;
-}
-#atk{
-  display: grid;
-  text-align: center;
-  grid-template-rows: 1fr 1fr 4fr;
 }
 
 .result-restart{
@@ -133,10 +144,7 @@ input:checked + label{
   .cards{
     flex-direction: column;
   }
-  #buttons{
-    flex-direction: column;
-  }
-  #petsFight{
+  #attack-buttons{
     flex-direction: column;
   }
   h1{
