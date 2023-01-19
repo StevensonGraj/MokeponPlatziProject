@@ -4,24 +4,35 @@
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="assets/mokepons_mokepon_capipepo_attack.png">
         <title>MOKEPON</title>
         <link rel="stylesheet" href="css/styles.css">
     </head>
     <body>
         <h1 id="emojis">🔥💦🧱🐱‍🐉🎮👾</h1>
-        <h1 id="title">WELCOME TO MOKEPON</h1>
-        
         <section id="pet-selection">
-            <h2>Select your pet:</h2>
+            <h1 id="title">WELCOME TO MOKEPON</h1>
+            <h1>Select your pet:</h1>
 
-            <div id="cardsContainer" class="cards">
+            <div id="cardsContainer">
             </div>
 
             <button id="petButton">Select</button>
         </section>
 
+        <section id="viewMap" style="display: none;">
+            <h1>Traverse the Map with your Mokepon</h1>
+            <canvas id="map"></canvas>
+            <button onmousedown="changePetVelocity(0,-5)" onmouseup="changePetVelocity(0,0)">Up</button>
+            <div>
+                <button onmousedown="changePetVelocity(-5,0)" onmouseup="changePetVelocity(0,0)">Left</button>
+                <button onmousedown="changePetVelocity(0,5)" onmouseup="changePetVelocity(0,0)">Down</button>
+                <button onmousedown="changePetVelocity(5,0)" onmouseup="changePetVelocity(0,0)">Right</button>
+            </div>
+        </section>
+
         <section id="attack-selection" style="display: none;">
-            <h2>Chose your attack:</h2>
+            <h1>Chose your attack:</h1>
 
             <div id="attack-buttons">
             </div>

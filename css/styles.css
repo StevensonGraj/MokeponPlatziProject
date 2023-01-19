@@ -3,20 +3,21 @@ body {
   font-family: 'Bungee Shade';
   background-image: url("/assets/pink_world.jpg");
   background-size: cover;
-  background-position: 0%;
+  margin: auto;
 }
 
 h1{
   text-align: center;
-  margin: -30px 0 -30px 0px;
-  font-size: 60px;
+  margin: -30px 0px -30px 0px;
+  font-size: 50px;
 }
 #title {
   color: #FF6D28;
 }
 #emojis {
   background-color: #FF6D28;
-  height: 120px;
+  height: 100px;
+  margin-bottom: 5px;
 }
 
 button{
@@ -52,13 +53,32 @@ button:active{
   align-items: center;
   text-align: center;
   color: #00F5FF;
-  padding: 10px;
 }
 
-.cards {
+#viewMap{
   display: flex;
+  gap: 5px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#viewMap div{
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  align-content: space-around;
+}
+#map{
+  border: 2px solid #FF6D28;
+}
+
+#cardsContainer {
+  display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   align-items: center;
+  justify-content: space-around;
+  margin: 20px 0 0 10px;
 }
 .mokepon-card {
   width: 180px;
@@ -111,19 +131,22 @@ input:checked + label{
 }
 #attack-selection{
   flex-direction: column;
-  justify-content: space-around;
   align-items: center;
   color: #00F5FF;
 }
 #attack-buttons{
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 10px;
 }
 #petsFight{
   display: flex;
   gap: 10px;
-  margin-top: 20px;
+  margin: 20px 0 0 30px;
   align-items: center;
+  align-content: center;
+  justify-content: center;
 }
 #petsFight h2{
   margin: 0px;
@@ -141,16 +164,15 @@ input:checked + label{
 }
 
 @media (max-width: 500px){
-  .cards{
-    flex-direction: column;
-  }
-  #attack-buttons{
-    flex-direction: column;
+  button{
+    font-size: 10px;
+    width: 80px;
   }
   h1{
-    font-size: 40px;
+    margin: -20px 0px 0px 0px;
+    font-size: 30px;
   }
   #emojis{
-    height: 100px;
+    height: 60px;
   }
 }
