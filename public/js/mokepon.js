@@ -19,11 +19,14 @@ const map = document.getElementById('map')
 map.width = window.innerWidth*0.6
 map.height = window.innerWidth*0.45
 /* Variables used for the JS code */
+let playerID = null
+let enemyID = null
 let playerLives = 3
 let playerAtks = []
 let enemyLives = 3
 let enemyAtks = []
 let mokepons = []
+let enemyMokepons = []
 let mokeponCard
 let inputHipodoge
 let inputCapipepo
@@ -44,16 +47,19 @@ backgroundMapImg.src = './assets/mokemap.png'
 
 //Class, pets and attacks definition
 class Mokepon{
-    constructor(newName, newPhoto, newLive, mapPhoto, x = 10, y = 10){
+    constructor(newName, newPhoto, newLive, mapPhoto, id=null){
+        this.id = id
         this.name = newName
         this.photo = newPhoto
         this.live = newLive
         this.attacks = []
-        this.x = x
-        this.y = y
-        //Size default of the img for move later
+        //Size of the Mokepong img determinated from the map size
         this.width = map.width/8
         this.height = this.width
+        //Position Random of the Mokepon from the map size
+        this.x = random(0, map.height-this.height)
+        this.y = random(0, map.width-this.width)
+        //Making the Image for the movement
         this.photoMove = new Image()
         this.photoMove.src = mapPhoto
         this.xVelocity = 0
@@ -124,9 +130,7 @@ langostelvis.attacks.push(
 
 mokepons.push(hipodoge, capipepo, ratigueya, pydos, tucapalma, langostelvis)
 
-//Definition of Enemy Mokepons (only 3 because I want xD) and their random positions
-let enemyMokepons = []
-//For cicle to Copy every original mokepon for a "copy" to Enemy Mokepons using Object.assign
+/* //For cicle to Copy every original mokepon for a "copy" to Enemy Mokepons using Object.assign
 mokepons.forEach(mokepon => {
     let newMokepon = new Mokepon()
     newMokepon = Object.assign(newMokepon, mokepon)
@@ -141,9 +145,9 @@ for (let i = 0; i < 3; i++) {
 enemyMokepons.forEach(mokepon => {
     mokepon.x = random(mokepon.width+2, map.width-mokepon.width)
     mokepon.y = random(mokepon.height+2, map.height-mokepon.height)
-})
+}) */
 
-////////============================================================================////////
+//////////////////////  ============================================================================  ///////////////////////
 //Start the functions at the order of the game line
 function startGame(){
     mapSection.style.display = 'none'
@@ -170,12 +174,21 @@ function startGame(){
     restartButton.addEventListener('click', function (){
             location.reload()
     })
+
+    joinGame()
 }
 
-function playerPetSelect(){
-    petSelectionSection.style.display = 'none'   
-    mapSection.style.display = 'flex'
-    
+function joinGame() {
+    fetch("http://172.23.16.135:8080/joinGame").then(function(res){
+        if (res.ok) {
+            res.text().then(function(response){
+                playerID = response
+            })
+        }
+    })
+}
+
+function playerPetSelect(){    
     /* Check every input for copy the Pet Object at PlayerPet (when don't select any pet and reload the game
         and put the Pet name at playerPetSpan variable for "print" its attacks latter  */
     playerPet = new Mokepon()
@@ -193,10 +206,26 @@ function playerPetSelect(){
         playerPet = Object.assign(playerPet, mokepons[5])
     }else {
         alert("You DON'T select any pet")
-        return location.reload()
+        return 
     }
 
+    petSelectionSection.style.display = 'none'   
+    mapSection.style.display = 'flex'
+    selectPlayerPet(playerPet.name)
     makeMap()
+}
+
+function selectPlayerPet(playerPetName){
+    fetch(`http://172.23.16.135:8080/mokepon/${playerID}`, {
+        method:"post",
+        headers:{
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            mokepon: playerPetName
+        })
+    })
+    console.log(playerPetName)
 }
 
 // Collect the sequence of the Player attacks and make the random enemy attacks
@@ -208,6 +237,7 @@ function AtkSequence(enemyMokepon){
 
     /* Enemy pet crashed */
     enemyPet = enemyMokepon
+    enemyID = enemyPet.id
     enemyPetSpan.innerHTML = enemyPet.name
 
     // Add Player and Enemy Mokepon elected image
@@ -228,21 +258,39 @@ function AtkSequence(enemyMokepon){
         button.addEventListener('click', (eve) =>{
             playerAtks.push(eve.target.textContent)
             button.disabled = true
-            enemyRandomAtk()
+            // If the five attacks was be happend, start the combat
+            if(playerAtks.length == 5){
+                sendAttacks()
+            }
         })
     })
 }
 
-function enemyRandomAtk(){
-    let enemyAux = enemyPet.attacks
-    let randomAtk = random(0,enemyAux.length-1)
-    enemyAtks.push(enemyAux[randomAtk].name)
-    enemyPet.attacks.splice(randomAtk, 1)
+function sendAttacks(){
+    fetch(`http://172.23.16.135:8080/mokepon/${playerID}/attacks`, {
+        method:"post",
+        headers:{
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            attacks: playerAtks
+        })
+    })
+    interval = setInterval(getEnemyAttacks, 1000)
+}
 
-    // If the five attacks was be happend, start the combat
-    if(playerAtks.length == 5){
-        combat()
-    }
+function getEnemyAttacks() {
+    fetch(`http://172.23.16.135:8080/mokepon/${enemyID}/attacks`).then((res)=>{
+        if (res.ok) {
+            res.json().then(({attacks})=>{
+                if (attacks.length === 5) {
+                    enemyAtks = attacks
+                    combat()
+                    clearInterval(interval)
+                }
+            })
+        }
+    })
 }
 
 function combat(){
@@ -336,6 +384,7 @@ function changePetVelocity(x,y){
     moveCanvas()
 }
 
+//Mainly Function for map, because it's runing by interval
 function moveCanvas(){
     //change the attribute of the Object for move the img
     playerPet.x += playerPet.xVelocity
@@ -343,18 +392,9 @@ function moveCanvas(){
     //Clean the canvas from 0,0 to canvas/map "end", before draw new positioned img
     canvas2D.clearRect(0, 0, map.width, map.height)
     
-    for (let i = 0; i < 3; i++) {
-        if((playerPet.x < enemyMokepons[i].x+playerPet.width &&
-            playerPet.y < enemyMokepons[i].y+playerPet.width) &&
-            (playerPet.x+playerPet.width > enemyMokepons[i].x &&
-            playerPet.y+playerPet.width > enemyMokepons[i].y)){
-                AtkSequence(enemyMokepons[i])
-                clearInterval(interval)
-        }else{
-        }
-    }
+    sendPosition(playerPet.x, playerPet.y)
 
-    //Form made by course teacher 
+    //Form of check colision made by course teacher 
     /* for (let i = 0; i < 3; i++) {
         if(playerPet.x > enemyMokepons[i].x+100 ||
             playerPet.x+100 < enemyMokepons[i].x ||
@@ -368,9 +408,44 @@ function moveCanvas(){
     canvas2D.drawImage(backgroundMapImg, 0, 0, map.width, map.height)
     enemyMokepons.forEach(mokepon => {
         mokepon.drawSelf()
+        //Check the player and enemy mokepons colision
+        if((playerPet.x < mokepon.x+playerPet.width &&
+            playerPet.y < mokepon.y+playerPet.width) &&
+            (playerPet.x+playerPet.width > mokepon.x &&
+            playerPet.y+playerPet.width > mokepon.y)){
+                AtkSequence(mokepon)
+                clearInterval(interval)
+        }
     })
     playerPet.drawSelf()
+}
 
+function sendPosition(x, y) { 
+    fetch(`http://172.23.16.135:8080/mokepon/${playerID}/position`, {
+        method:"post",
+        headers:{
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            x,
+            y
+        })
+    }).then((res) =>{if (res.ok){
+        res.json().then(({enemies}) =>{
+            enemyMokepons = enemies.map(enemy => {
+                let newMokepon = new Mokepon()
+                mokepons.forEach(mokepon => {
+                    if (mokepon.name === enemy.mokepon.name){
+                        newMokepon = Object.assign(newMokepon, mokepon)
+                        newMokepon.x = enemy.mokepon.x
+                        newMokepon.y = enemy.mokepon.y
+                        newMokepon.id = enemy.id
+                    }
+                })
+                return newMokepon
+            })
+        })
+    }})
 }
 
 function random(min, max) {

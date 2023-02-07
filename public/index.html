@@ -23,11 +23,11 @@
         <section id="viewMap" style="display: none;">
             <h1>Traverse the Map with your Mokepon</h1>
             <canvas id="map"></canvas>
-            <button onmousedown="changePetVelocity(0,-5)" onmouseup="changePetVelocity(0,0)">Up</button>
+            <button onmousedown="changePetVelocity(0,-5)" onmouseup="changePetVelocity(0,0)" ontouchstart="changePetVelocity(0,-5)" ontouchend="changePetVelocity(0,0)">Up</button>
             <div>
-                <button onmousedown="changePetVelocity(-5,0)" onmouseup="changePetVelocity(0,0)">Left</button>
-                <button onmousedown="changePetVelocity(0,5)" onmouseup="changePetVelocity(0,0)">Down</button>
-                <button onmousedown="changePetVelocity(5,0)" onmouseup="changePetVelocity(0,0)">Right</button>
+                <button onmousedown="changePetVelocity(-5,0)" onmouseup="changePetVelocity(0,0)" ontouchstart="changePetVelocity(-5,0)" ontouchend="changePetVelocity(0,0)">Left</button>
+                <button onmousedown="changePetVelocity(0,5)" onmouseup="changePetVelocity(0,0)" ontouchstart="changePetVelocity(0,5)" ontouchend="changePetVelocity(0,0)">Down</button>
+                <button onmousedown="changePetVelocity(5,0)" onmouseup="changePetVelocity(0,0)" ontouchstart="changePetVelocity(5,0)" ontouchend="changePetVelocity(0,0)">Right</button>
             </div>
         </section>
 
